@@ -9,7 +9,7 @@ import BottomSection from './components/bottom/bottom'
 function App() {
   return (
     <div className="app-container">
-      <div className="main-container">
+      <div className="main-container">Making a change
         <div className="top-section"><TopSection /></div>
         <div className="bottom-section"><BottomSection />App</div>
       </div>

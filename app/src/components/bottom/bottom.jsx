@@ -1,9 +1,11 @@
 import React from 'react'
 
+import "./bottomStyle.scss"
+
 function BottomSection() {
 
     return(
-        <div>BOTTOM SECTION</div>
+        <div className="bottom-container"></div>
     )
 }
 

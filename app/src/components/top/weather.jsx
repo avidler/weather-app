@@ -10,7 +10,7 @@ function Weather() {
             <div className="weather-container-header">Location Name</div>
             <div className="weather-container-inner">
                 <div className="weather-container-image"><img src={SunImg} alt="sun" /></div>
-                <div className="weather-container-temperature">10</div>
+                <div className="weather-container-temperature">10°</div>
             </div>
             <div className="weather-container-footer">Sunny</div>
         </div>

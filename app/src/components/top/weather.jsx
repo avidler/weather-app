@@ -2,17 +2,17 @@ import React from 'react'
 
 import SunImg from "../../resources/images/sunny.png"
 
-function Weather() {
-
+function Weather(props) {
+    const { location, temp_c, isDay, text, iconURL} = props
 
     return(
         <div className="weather-container">
-            <div className="weather-container-header">Location Name</div>
+            <div className="weather-container-header">{location}</div>
             <div className="weather-container-inner">
-                <div className="weather-container-image"><img src={SunImg} alt="sun" /></div>
-                <div className="weather-container-temperature">10°</div>
+                <div className="weather-container-image"><img src={iconURL} alt="sun" /></div>
+                <div className="weather-container-temperature">{temp_c}°</div>
             </div>
-            <div className="weather-container-footer">Sunny</div>
+            <div className="weather-container-footer">{text}</div>
         </div>
 
     )

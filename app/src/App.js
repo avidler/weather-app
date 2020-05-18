@@ -6,9 +6,12 @@ import "./sass/app.scss";
 import TopSection from './components/top/top'
 import BottomSection from './components/bottom/bottom'
 
-function App() {
+function App(props) {
   const cityName = "Helsinki"
   const forecastDays = 5
+
+  const { eventEmitter } = props
+
   const [temp_c, setTemp_c] = useState(0)
   const [isDay, setIsDay] = useState(true)
   const [text, setText] = useState("")
@@ -44,6 +47,10 @@ function App() {
     getWeather()
   })
 
+  eventEmitter.on("updateWeather", data => {
+    console.log("LocationName:", data)
+  })
+
   return (
     <div className="app-container">
       <div className="main-container">
@@ -55,6 +62,7 @@ function App() {
                                       isDay={isDay} 
                                       text={text} 
                                       iconURL={iconURL}
+                                      eventEmitter={props.eventEmitter}
                                     />
         </div>}
         <div className="bottom-section"><BottomSection /></div>

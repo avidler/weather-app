@@ -1,11 +1,15 @@
-import React, {useState} from 'react'
+import React from 'react'
 
-function Store() {
-    const [appName, setAppName] = useState("Weather Up")
+import { EventEmitter } from "events"
+
+function Store(props) {
+    const appName = "Weather Up"
+
+    const eventEmitter = new EventEmitter();
 
     return(
-        React.Children.map(this.props.children, child => {
-            return React.cloneElement(child, { ...appName})
+        React.Children.map(props.children, child => {
+            return (React.cloneElement(child, {appName, eventEmitter}))
         })
     )
 }

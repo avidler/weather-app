@@ -7,8 +7,8 @@ import TopSection from './components/top/top'
 import BottomSection from './components/bottom/bottom'
 
 function App(props) {
-  const cityName = "Helsinki"
-  const forecastDays = 5
+  const [cityName, setCityName] = useState("London")
+  const [numForecastDays, setNumForecastDays] = useState(5)
 
   const { eventEmitter } = props
 
@@ -16,6 +16,8 @@ function App(props) {
   const [isDay, setIsDay] = useState(true)
   const [text, setText] = useState("")
   const [iconURL, setIconURL] = useState("")
+  const [forecastDays, setForecastDays] = useState([])
+
   const [isLoading, setIsLoading] = useState(true)
   
   useEffect(() => {
@@ -25,20 +27,21 @@ function App(props) {
       const params = {
         access_key: 'f69da7fad1f8310a6791869adc742c8c',
         query: cityName,
-        forecastDays
+        forecast_days: numForecastDays
       }
       await axios.get('http://api.weatherstack.com/current', {params})
       .then(response => {
         const apiResponse = response.data;
         return apiResponse
       }).then((data) => {
-        console.log("data: ",data)
+        console.log("data forecast: ",data)
         setIsLoading(false)
         setTemp_c(data.current.temperature)
         setIsDay(data.current.is_day)
         setText(data.current.weather_descriptions[0])
         setIconURL(data.current.weather_icons[0])
-        console.log(temp_c, isDay, text, iconURL);
+        //setForecastDays(data.forecast)
+        //console.log(temp_c, isDay, text, iconURL);
       }).catch(error => {
         console.log(error);
       });
@@ -48,7 +51,8 @@ function App(props) {
   })
 
   eventEmitter.on("updateWeather", data => {
-    console.log("LocationName:", data)
+    setCityName(data)
+    //console.log("Updating weather... LocationName:", data)
   })
 
   return (
@@ -65,7 +69,9 @@ function App(props) {
                                       eventEmitter={props.eventEmitter}
                                     />
         </div>}
-        <div className="bottom-section"><BottomSection /></div>
+        <div className="bottom-section"><BottomSection
+
+                                      /></div>
       </div>
     </div>
   );

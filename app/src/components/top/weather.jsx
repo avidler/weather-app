@@ -1,6 +1,6 @@
 import React from 'react'
 
-import SunImg from "../../resources/images/sunny.png"
+
 
 function Weather(props) {
     const { location, temp_c, isDay, text, iconURL} = props

@@ -15,7 +15,8 @@ function TopSection(props) {
       modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
     });
 
-    const eventEmitter = props
+    const { eventEmitter } = props
+    
 
     function togglePopperElement() {
         setIsShowPopperOn(!isShowPopperOn)
@@ -26,11 +27,14 @@ function TopSection(props) {
     }
 
     function selectCity() {
-        const { eventEmitter } = props
-        eventEmitter.emit("updateweather", locationName)
+        togglePopperElement()
+        var rtrn = eventEmitter.emit("updateWeather", locationName)
+        if(rtrn === false) {
+            console.log('Error triggering event');
+          }
     }
 
-    console.log(props)
+    //console.log(props)
     return(
         <div className="top-container">
             <div className="title">Weather Up</div>

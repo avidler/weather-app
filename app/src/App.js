@@ -25,23 +25,27 @@ function App(props) {
     async function getWeather () {
       const axios = require('axios')
       const params = {
-        access_key: 'f69da7fad1f8310a6791869adc742c8c',
-        query: cityName,
-        forecast_days: numForecastDays
+        appid: 'f84cddc6b247326126f3ca0fcf0bc7cf',
+        q: cityName,
+        forecast_days: numForecastDays,
+        units: 'metric'
       }
-      await axios.get('http://api.weatherstack.com/current', {params})
+      await axios.get('https://api.openweathermap.org/data/2.5/forecast', {params})
       .then(response => {
         const apiResponse = response.data;
         return apiResponse
       }).then((data) => {
         console.log("data forecast: ",data)
         setIsLoading(false)
-        setTemp_c(data.current.temperature)
-        setIsDay(data.current.is_day)
-        setText(data.current.weather_descriptions[0])
-        setIconURL(data.current.weather_icons[0])
+        setTemp_c(Math.round(data.list[0].main.temp))
+        //setIsDay(data.current.is_day)
+        setText(data.list[0].weather[0].description)
+        var iconcode = data.list[0].weather[0].icon;
+        console.log("iconcode: ",iconcode)
+        setIconURL("http://openweathermap.org/img/w/" + iconcode + ".png")
+        console.log("IconURL: ",iconURL)
         //setForecastDays(data.forecast)
-        //console.log(temp_c, isDay, text, iconURL);
+        console.log(temp_c, isDay, text, iconURL);
       }).catch(error => {
         console.log(error);
       });

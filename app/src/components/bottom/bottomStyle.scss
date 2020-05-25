@@ -4,12 +4,21 @@
     background: linear-gradient(100deg, #6ABECA 0%, rgba(58, 98, 104, 0.27) 100%), url("../../resources/images/sunny-weather.jpg") center no-repeat;
     background-size: cover;
 
+    .bottom-container-header {
+        width: 100%;
+        padding-top: 0.5em;
+        display: flex;
+        justify-content: center;
+        color: #eee;
+    }
+
     .bottom-inner-container{
+        position: relative;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        height: 100%;
+        
     }
 }
 
@@ -20,11 +29,16 @@
     height: 100%;
     align-items: center;
     justify-content: center;
+    border: #C0C0C0 solid 1px;
+    margin: 0.8em;
+    border-radius: 5px;
+    color: #eee;
+    background: rgba(46, 113, 236, 0.7);
 
 
     .forecastday-container-image {
-        width: 2em;
-        height: 2em;
+        width: 5em;
+        height: 5em;
 
         img {
             width: 100%;
@@ -37,3 +51,48 @@
     } 
 
 }
+
+/* Tooltip container */
+.tooltip {
+    position: absolute;
+    display: inline-block;
+    //border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 18%;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 0.8rem;
+  
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    margin-left: 0px;
+  
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  /* Tooltip arrow */
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+ 
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }

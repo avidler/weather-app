@@ -3,7 +3,7 @@ import React from 'react'
 
 
 function Weather(props) {
-    const { location, temp_c, isDay, text, iconURL} = props
+    const { location, temp_c, text, iconURL} = props
 
     return(
         <div className="weather-container">

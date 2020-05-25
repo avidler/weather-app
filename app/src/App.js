@@ -8,12 +8,11 @@ import BottomSection from './components/bottom/bottom'
 
 function App(props) {
   const [cityName, setCityName] = useState("London")
-  const [numForecastDays, setNumForecastDays] = useState(5)
+
 
   const { eventEmitter } = props
 
   const [temp_c, setTemp_c] = useState(0)
-  const [isDay, setIsDay] = useState(true)
   const [text, setText] = useState("")
   const [iconURL, setIconURL] = useState("")
   const [forecastDays, setForecastDays] = useState([])
@@ -27,7 +26,6 @@ function App(props) {
       const params = {
         appid: 'f84cddc6b247326126f3ca0fcf0bc7cf',
         q: cityName,
-        forecast_days: numForecastDays,
         units: 'metric'
       }
       await axios.get('https://api.openweathermap.org/data/2.5/forecast', {params})
@@ -39,24 +37,24 @@ function App(props) {
         setIsLoading(false)
         setTemp_c(Math.round(data.list[0].main.temp))
         //setIsDay(data.current.is_day)
-        setText(data.list[0].weather[0].description)
+        setText(data.list[0].weather[0].main)
         var iconcode = data.list[0].weather[0].icon;
         console.log("iconcode: ",iconcode)
         setIconURL("http://openweathermap.org/img/w/" + iconcode + ".png")
-        console.log("IconURL: ",iconURL)
-        //setForecastDays(data.forecast)
-        console.log(temp_c, isDay, text, iconURL);
+        //console.log("IconURL: ",iconURL)
+        setForecastDays(data.list)
+        //console.log("forecastDays: ", forecastDays);
       }).catch(error => {
         console.log(error);
       });
     }
 
     getWeather()
-  })
+  }, [cityName])
 
   eventEmitter.on("updateWeather", data => {
     setCityName(data)
-    //console.log("Updating weather... LocationName:", data)
+    console.log("Updating weather... LocationName:", data)
   })
 
   return (
@@ -64,18 +62,20 @@ function App(props) {
       <div className="main-container">
         {isLoading && <h3>Loading Weather...</h3>}
         {!isLoading &&
+        <>
         <div className="top-section"><TopSection 
                                       location={cityName} 
                                       temp_c={temp_c} 
-                                      isDay={isDay} 
                                       text={text} 
                                       iconURL={iconURL}
                                       eventEmitter={props.eventEmitter}
                                     />
-        </div>}
+        </div>
         <div className="bottom-section"><BottomSection
-
+                                        forecastDays={forecastDays}
                                       /></div>
+        </>
+        }
       </div>
     </div>
   );
